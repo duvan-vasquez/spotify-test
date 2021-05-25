@@ -1,5 +1,7 @@
 {
   "name": "spotify-test",
-  "integrations": {},
+  "integrations": {
+    "capacitor": {}
+  },
   "type": "angular"
 }
