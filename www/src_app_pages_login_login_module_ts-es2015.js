@@ -101,7 +101,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @angular/core */ 37716);
 /* harmony import */ var _ionic_angular__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @ionic/angular */ 80476);
 /* harmony import */ var src_app_core_services_common_service__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! src/app/core/services/common.service */ 50690);
-/* harmony import */ var src_app_core_services_spotify_auth_service__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! src/app/core/services/spotify-auth.service */ 55818);
+/* harmony import */ var src_app_core_services_spotify_authorize_service__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! src/app/core/services/spotify/authorize.service */ 67880);
 /* harmony import */ var src_app_shared_global_environment__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! src/app/shared/global.environment */ 98618);
 
 
@@ -112,28 +112,27 @@ __webpack_require__.r(__webpack_exports__);
 
 
 let LoginPage = class LoginPage {
-    constructor(commonService, spotifyAuthService, navCtrl, plt) {
+    constructor(commonService, authorizeService, navCtrl, plt) {
         this.commonService = commonService;
-        this.spotifyAuthService = spotifyAuthService;
+        this.authorizeService = authorizeService;
         this.navCtrl = navCtrl;
         this.plt = plt;
         this.logo = '../assets/general/logo.png';
         plt.ready().then(() => (0,tslib__WEBPACK_IMPORTED_MODULE_5__.__awaiter)(this, void 0, void 0, function* () {
-            yield this.commonService.loadAuth();
+            //await this.commonService.loadAuth();
             /** Review Token Expire or redirect to home. */
-            this.onConnect();
             console.log(src_app_shared_global_environment__WEBPACK_IMPORTED_MODULE_4__.GlobalEnvironment.auth);
         }));
     }
     ngOnInit() {
     }
     onConnect() {
-        this.spotifyAuthService.auth();
+        this.authorizeService.auth(true);
     }
 };
 LoginPage.ctorParameters = () => [
     { type: src_app_core_services_common_service__WEBPACK_IMPORTED_MODULE_2__.CommonService },
-    { type: src_app_core_services_spotify_auth_service__WEBPACK_IMPORTED_MODULE_3__.SpotifyAuthService },
+    { type: src_app_core_services_spotify_authorize_service__WEBPACK_IMPORTED_MODULE_3__.AuthorizeService },
     { type: _ionic_angular__WEBPACK_IMPORTED_MODULE_6__.NavController },
     { type: _ionic_angular__WEBPACK_IMPORTED_MODULE_6__.Platform }
 ];
@@ -157,7 +156,7 @@ LoginPage = (0,tslib__WEBPACK_IMPORTED_MODULE_5__.__decorate)([
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = ("\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IiIsImZpbGUiOiJsb2dpbi5wYWdlLnNjc3MifQ== */");
+/* harmony default export */ __webpack_exports__["default"] = (".ripple-parent {\n  position: relative;\n  overflow: hidden;\n}\n\nimg {\n  width: 100%;\n  height: auto;\n}\n\n.header {\n  display: flex;\n  flex-direction: column;\n  align-items: center;\n}\n\n.a-img-70 {\n  width: 70%;\n  height: auto;\n}\n\n.vertical-center {\n  margin: 0;\n  position: absolute;\n  top: 50%;\n  left: 50%;\n  transform: translate(-50%, -50%);\n  width: 100%;\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbImxvZ2luLnBhZ2Uuc2NzcyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiQUFBQTtFQUNJLGtCQUFBO0VBQ0EsZ0JBQUE7QUFDSjs7QUFDQTtFQUNJLFdBQUE7RUFDQSxZQUFBO0FBRUo7O0FBQUE7RUFDSSxhQUFBO0VBQ0Esc0JBQUE7RUFDQSxtQkFBQTtBQUdKOztBQURBO0VBQ0ksVUFBQTtFQUNBLFlBQUE7QUFJSjs7QUFGQTtFQUNJLFNBQUE7RUFDQSxrQkFBQTtFQUNBLFFBQUE7RUFDQSxTQUFBO0VBRUEsZ0NBQUE7RUFDQSxXQUFBO0FBS0oiLCJmaWxlIjoibG9naW4ucGFnZS5zY3NzIiwic291cmNlc0NvbnRlbnQiOlsiLnJpcHBsZS1wYXJlbnQge1xuICAgIHBvc2l0aW9uOiByZWxhdGl2ZTtcbiAgICBvdmVyZmxvdzogaGlkZGVuO1xufVxuaW1nIHtcbiAgICB3aWR0aDogMTAwJTtcbiAgICBoZWlnaHQ6IGF1dG87XG59XG4uaGVhZGVyIHtcbiAgICBkaXNwbGF5OiBmbGV4O1xuICAgIGZsZXgtZGlyZWN0aW9uOiBjb2x1bW47XG4gICAgYWxpZ24taXRlbXM6IGNlbnRlcjtcbn1cbi5hLWltZy03MCB7XG4gICAgd2lkdGg6IDcwJTtcbiAgICBoZWlnaHQ6IGF1dG87XG59XG4udmVydGljYWwtY2VudGVyIHtcbiAgICBtYXJnaW46IDA7XG4gICAgcG9zaXRpb246IGFic29sdXRlO1xuICAgIHRvcDogNTAlO1xuICAgIGxlZnQ6IDUwJTtcbiAgICAtbXMtdHJhbnNmb3JtOiB0cmFuc2xhdGUoLTUwJSwgLTUwJSk7XG4gICAgdHJhbnNmb3JtOiB0cmFuc2xhdGUoLTUwJSwgLTUwJSk7XG4gICAgd2lkdGg6IDEwMCU7XG59Il19 */");
 
 /***/ }),
 

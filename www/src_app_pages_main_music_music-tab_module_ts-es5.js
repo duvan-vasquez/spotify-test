@@ -148,9 +148,9 @@
       /* harmony import */
 
 
-      var src_app_components_molecules_list_list_molecule_component__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(
-      /*! src/app/components/molecules/list/list.molecule.component */
-      50905);
+      var src_app_components_molecules_item_play_list_item_play_list_molecule_component__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(
+      /*! src/app/components/molecules/item-play-list/item-play-list.molecule.component */
+      17623);
 
       var _MusicTabPageModule = function MusicTabPageModule() {
         _classCallCheck(this, MusicTabPageModule);
@@ -158,7 +158,7 @@
 
       _MusicTabPageModule = (0, tslib__WEBPACK_IMPORTED_MODULE_4__.__decorate)([(0, _angular_core__WEBPACK_IMPORTED_MODULE_5__.NgModule)({
         imports: [_angular_common__WEBPACK_IMPORTED_MODULE_6__.CommonModule, _angular_forms__WEBPACK_IMPORTED_MODULE_7__.FormsModule, _ionic_angular__WEBPACK_IMPORTED_MODULE_8__.IonicModule, src_app_components_component_module__WEBPACK_IMPORTED_MODULE_2__.ComponentModule, _music_tab_routing_module__WEBPACK_IMPORTED_MODULE_1__.MusicTabPageRoutingModule],
-        entryComponents: [src_app_components_molecules_list_list_molecule_component__WEBPACK_IMPORTED_MODULE_3__.ListMolecule],
+        entryComponents: [src_app_components_molecules_item_play_list_item_play_list_molecule_component__WEBPACK_IMPORTED_MODULE_3__.ItemPlayListMolecule],
         declarations: [_music_tab_page__WEBPACK_IMPORTED_MODULE_0__.MusicTabPage]
       })], _MusicTabPageModule);
       /***/
@@ -192,7 +192,7 @@
       /* harmony import */
 
 
-      var tslib__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(
+      var tslib__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(
       /*! tslib */
       64762);
       /* harmony import */
@@ -210,21 +210,28 @@
       /* harmony import */
 
 
-      var _angular_core__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(
+      var _angular_core__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(
       /*! @angular/core */
       37716);
       /* harmony import */
 
 
-      var src_app_core_services_spotify_auth_service__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(
-      /*! src/app/core/services/spotify-auth.service */
-      55818);
+      var src_app_core_services_spotify_category_service__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(
+      /*! src/app/core/services/spotify/category.service */
+      39966);
+      /* harmony import */
+
+
+      var src_app_core_utils_loading_util__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(
+      /*! src/app/core/utils/loading.util */
+      46543);
 
       var _MusicTabPage = /*#__PURE__*/function () {
-        function MusicTabPage(spotifyAuthService) {
+        function MusicTabPage(categoryService, loadingUtil) {
           _classCallCheck(this, MusicTabPage);
 
-          this.spotifyAuthService = spotifyAuthService;
+          this.categoryService = categoryService;
+          this.loadingUtil = loadingUtil;
           this.items = [];
           this.title = 'Music';
         }
@@ -232,30 +239,52 @@
         _createClass(MusicTabPage, [{
           key: "ngOnInit",
           value: function ngOnInit() {
+            var _this = this;
+
             this.loadList();
+            this.categoryService.categoryServiceSubscribe.subscribe(function (res) {
+              return (0, tslib__WEBPACK_IMPORTED_MODULE_4__.__awaiter)(_this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee() {
+                return regeneratorRuntime.wrap(function _callee$(_context) {
+                  while (1) {
+                    switch (_context.prev = _context.next) {
+                      case 0:
+                        if (res) {
+                          console.log('Suscribe', res);
+                          this.items = this.categoryService.listCategories;
+                        }
+
+                      case 1:
+                      case "end":
+                        return _context.stop();
+                    }
+                  }
+                }, _callee, this);
+              }));
+            });
           }
         }, {
           key: "loadList",
           value: function loadList() {
-            return (0, tslib__WEBPACK_IMPORTED_MODULE_3__.__awaiter)(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee() {
-              return regeneratorRuntime.wrap(function _callee$(_context) {
+            return (0, tslib__WEBPACK_IMPORTED_MODULE_4__.__awaiter)(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee2() {
+              return regeneratorRuntime.wrap(function _callee2$(_context2) {
                 while (1) {
-                  switch (_context.prev = _context.next) {
+                  switch (_context2.prev = _context2.next) {
                     case 0:
-                      _context.next = 2;
-                      return this.spotifyAuthService.getPlayList();
+                      _context2.next = 2;
+                      return this.loadingUtil.init();
 
                     case 2:
-                      this.responsePlayList = _context.sent;
-                      this.items = this.responsePlayList.items;
-                      console.log(this.responsePlayList.items);
+                      this.items = this.categoryService.listCategories;
+                      console.log('Loading', this.items);
+                      _context2.next = 6;
+                      return this.loadingUtil.dismiss();
 
-                    case 5:
+                    case 6:
                     case "end":
-                      return _context.stop();
+                      return _context2.stop();
                   }
                 }
-              }, _callee, this);
+              }, _callee2, this);
             }));
           }
         }]);
@@ -265,11 +294,13 @@
 
       _MusicTabPage.ctorParameters = function () {
         return [{
-          type: src_app_core_services_spotify_auth_service__WEBPACK_IMPORTED_MODULE_2__.SpotifyAuthService
+          type: src_app_core_services_spotify_category_service__WEBPACK_IMPORTED_MODULE_2__.CategoryService
+        }, {
+          type: src_app_core_utils_loading_util__WEBPACK_IMPORTED_MODULE_3__.LoadingUtil
         }];
       };
 
-      _MusicTabPage = (0, tslib__WEBPACK_IMPORTED_MODULE_3__.__decorate)([(0, _angular_core__WEBPACK_IMPORTED_MODULE_4__.Component)({
+      _MusicTabPage = (0, tslib__WEBPACK_IMPORTED_MODULE_4__.__decorate)([(0, _angular_core__WEBPACK_IMPORTED_MODULE_5__.Component)({
         selector: 'app-music-tab',
         template: _raw_loader_music_tab_page_html__WEBPACK_IMPORTED_MODULE_0__["default"],
         styles: [_music_tab_page_scss__WEBPACK_IMPORTED_MODULE_1__["default"]]
@@ -309,7 +340,7 @@
       /* harmony default export */
 
 
-      __webpack_exports__["default"] = "<app-header [title]=\"'SSMs'\"></app-header>\n<ion-content>\n  <ion-content class=\"ion-padding\">\n    <app-list [items]=\"items\"></app-list>\n  </ion-content>\n</ion-content>";
+      __webpack_exports__["default"] = "<ion-content>\n  <app-item-play-list [items]=\"items\"></app-item-play-list>\n</ion-content>\n";
       /***/
     }
   }]);

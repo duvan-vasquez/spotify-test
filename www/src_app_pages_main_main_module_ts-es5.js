@@ -1,11 +1,165 @@
 (function () {
+  function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
   function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
 
   function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
 
-  function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
   (self["webpackChunkspotify_test"] = self["webpackChunkspotify_test"] || []).push([["src_app_pages_main_main_module_ts"], {
+    /***/
+    39966:
+    /*!***********************************************************!*\
+      !*** ./src/app/core/services/spotify/category.service.ts ***!
+      \***********************************************************/
+
+    /***/
+    function _(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+      "use strict";
+
+      __webpack_require__.r(__webpack_exports__);
+      /* harmony export */
+
+
+      __webpack_require__.d(__webpack_exports__, {
+        /* harmony export */
+        "CategoryService": function CategoryService() {
+          return (
+            /* binding */
+            _CategoryService
+          );
+        }
+        /* harmony export */
+
+      });
+      /* harmony import */
+
+
+      var tslib__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(
+      /*! tslib */
+      64762);
+      /* harmony import */
+
+
+      var _angular_core__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(
+      /*! @angular/core */
+      37716);
+      /* harmony import */
+
+
+      var rxjs__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(
+      /*! rxjs */
+      79765);
+      /* harmony import */
+
+
+      var _authorize_service__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(
+      /*! ./authorize.service */
+      67880);
+
+      var _CategoryService = /*#__PURE__*/function () {
+        function CategoryService(authorizeService) {
+          _classCallCheck(this, CategoryService);
+
+          this.authorizeService = authorizeService;
+          this.listCategories = [];
+          this.categoryServiceSubscribe = new rxjs__WEBPACK_IMPORTED_MODULE_1__.Subject();
+        }
+
+        _createClass(CategoryService, [{
+          key: "get",
+          value: function get() {
+            return (0, tslib__WEBPACK_IMPORTED_MODULE_2__.__awaiter)(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee() {
+              return regeneratorRuntime.wrap(function _callee$(_context) {
+                while (1) {
+                  switch (_context.prev = _context.next) {
+                    case 0:
+                      _context.next = 2;
+                      return this.authorizeService.spotifyApi.getCategories({
+                        offset: 0,
+                        limit: 30
+                      }).then(function (res) {
+                        return res.categories.items;
+                      });
+
+                    case 2:
+                      return _context.abrupt("return", _context.sent);
+
+                    case 3:
+                    case "end":
+                      return _context.stop();
+                  }
+                }
+              }, _callee, this);
+            }));
+          }
+        }, {
+          key: "getById",
+          value: function getById(id) {
+            return (0, tslib__WEBPACK_IMPORTED_MODULE_2__.__awaiter)(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee2() {
+              return regeneratorRuntime.wrap(function _callee2$(_context2) {
+                while (1) {
+                  switch (_context2.prev = _context2.next) {
+                    case 0:
+                      _context2.next = 2;
+                      return this.authorizeService.spotifyApi.getCategoryPlaylists(id).then(function (res) {
+                        return res.playlists.items;
+                      });
+
+                    case 2:
+                      return _context2.abrupt("return", _context2.sent);
+
+                    case 3:
+                    case "end":
+                      return _context2.stop();
+                  }
+                }
+              }, _callee2, this);
+            }));
+          }
+        }, {
+          key: "getRecommendation",
+          value: function getRecommendation() {
+            return (0, tslib__WEBPACK_IMPORTED_MODULE_2__.__awaiter)(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee3() {
+              return regeneratorRuntime.wrap(function _callee3$(_context3) {
+                while (1) {
+                  switch (_context3.prev = _context3.next) {
+                    case 0:
+                      _context3.next = 2;
+                      return this.authorizeService.spotifyApi.getRecommendations({
+                        limit: 30,
+                        seed_genres: 'pop'
+                      }).then(function (res) {
+                        return res.tracks;
+                      });
+
+                    case 2:
+                      this.listCategories = _context3.sent;
+
+                    case 3:
+                    case "end":
+                      return _context3.stop();
+                  }
+                }
+              }, _callee3, this);
+            }));
+          }
+        }]);
+
+        return CategoryService;
+      }();
+
+      _CategoryService.ctorParameters = function () {
+        return [{
+          type: _authorize_service__WEBPACK_IMPORTED_MODULE_0__.AuthorizeService
+        }];
+      };
+
+      _CategoryService = (0, tslib__WEBPACK_IMPORTED_MODULE_2__.__decorate)([(0, _angular_core__WEBPACK_IMPORTED_MODULE_3__.Injectable)({
+        providedIn: 'root'
+      })], _CategoryService);
+      /***/
+    },
+
     /***/
     33907:
     /*!***************************************************!*\
@@ -81,11 +235,11 @@
               return p.FavoriteTabPageModule;
             });
           }
+        }, {
+          path: '',
+          redirectTo: 'music',
+          pathMatch: 'full'
         }]
-      }, {
-        path: '',
-        redirectTo: 'music',
-        pathMatch: 'full'
       }];
 
       var _MainPageRoutingModule = function MainPageRoutingModule() {
@@ -177,8 +331,7 @@
 
       var src_app_components_molecules_item_play_list_item_play_list_molecule_component__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(
       /*! src/app/components/molecules/item-play-list/item-play-list.molecule.component */
-      17623); //import { ListMolecule } from 'src/app/components/molecules/list/list.molecule.component';
-
+      17623);
 
       var _MainPageModule = function MainPageModule() {
         _classCallCheck(this, MainPageModule);
@@ -220,7 +373,7 @@
       /* harmony import */
 
 
-      var tslib__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(
+      var tslib__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(
       /*! tslib */
       64762);
       /* harmony import */
@@ -238,27 +391,34 @@
       /* harmony import */
 
 
-      var _angular_core__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(
+      var _angular_core__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(
       /*! @angular/core */
       37716);
       /* harmony import */
 
 
-      var _ionic_angular__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(
+      var _ionic_angular__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(
       /*! @ionic/angular */
       80476);
       /* harmony import */
 
 
-      var src_app_core_services_spotify_auth_service__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(
-      /*! src/app/core/services/spotify-auth.service */
-      55818);
+      var src_app_core_services_spotify_category_service__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(
+      /*! src/app/core/services/spotify/category.service */
+      39966);
+      /* harmony import */
+
+
+      var src_app_core_services_spotify_follow_service__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(
+      /*! src/app/core/services/spotify/follow.service */
+      72570);
 
       var _MainPage = /*#__PURE__*/function () {
-        function MainPage(spotifyAuthService) {
+        function MainPage(categoryService, followService) {
           _classCallCheck(this, MainPage);
 
-          this.spotifyAuthService = spotifyAuthService;
+          this.categoryService = categoryService;
+          this.followService = followService;
           this.selected = '';
         }
 
@@ -270,30 +430,34 @@
         }, {
           key: "loadList",
           value: function loadList() {
-            return (0, tslib__WEBPACK_IMPORTED_MODULE_3__.__awaiter)(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee() {
-              var data;
-              return regeneratorRuntime.wrap(function _callee$(_context) {
+            return (0, tslib__WEBPACK_IMPORTED_MODULE_4__.__awaiter)(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee4() {
+              return regeneratorRuntime.wrap(function _callee4$(_context4) {
                 while (1) {
-                  switch (_context.prev = _context.next) {
+                  switch (_context4.prev = _context4.next) {
                     case 0:
-                      _context.next = 2;
-                      return this.spotifyAuthService.getPlayList();
+                      _context4.next = 2;
+                      return this.followService.get().then(function () {});
 
                     case 2:
-                      data = _context.sent;
-                      console.log(data);
+                      _context4.next = 4;
+                      return this.categoryService.getRecommendation().then(function () {});
 
                     case 4:
+                      _context4.next = 6;
+                      return this.categoryService.categoryServiceSubscribe.next(true);
+
+                    case 6:
                     case "end":
-                      return _context.stop();
+                      return _context4.stop();
                   }
                 }
-              }, _callee, this);
+              }, _callee4, this);
             }));
           }
         }, {
           key: "setTab",
           value: function setTab() {
+            console.log('load data');
             this.selected = this.tabs.getSelected();
           }
         }]);
@@ -303,17 +467,19 @@
 
       _MainPage.ctorParameters = function () {
         return [{
-          type: src_app_core_services_spotify_auth_service__WEBPACK_IMPORTED_MODULE_2__.SpotifyAuthService
+          type: src_app_core_services_spotify_category_service__WEBPACK_IMPORTED_MODULE_2__.CategoryService
+        }, {
+          type: src_app_core_services_spotify_follow_service__WEBPACK_IMPORTED_MODULE_3__.FollowService
         }];
       };
 
       _MainPage.propDecorators = {
         tabs: [{
-          type: _angular_core__WEBPACK_IMPORTED_MODULE_4__.ViewChild,
-          args: [_ionic_angular__WEBPACK_IMPORTED_MODULE_5__.IonTabs]
+          type: _angular_core__WEBPACK_IMPORTED_MODULE_5__.ViewChild,
+          args: [_ionic_angular__WEBPACK_IMPORTED_MODULE_6__.IonTabs]
         }]
       };
-      _MainPage = (0, tslib__WEBPACK_IMPORTED_MODULE_3__.__decorate)([(0, _angular_core__WEBPACK_IMPORTED_MODULE_4__.Component)({
+      _MainPage = (0, tslib__WEBPACK_IMPORTED_MODULE_4__.__decorate)([(0, _angular_core__WEBPACK_IMPORTED_MODULE_5__.Component)({
         selector: 'app-main',
         template: _raw_loader_main_page_html__WEBPACK_IMPORTED_MODULE_0__["default"],
         styles: [_main_page_scss__WEBPACK_IMPORTED_MODULE_1__["default"]]
@@ -353,7 +519,7 @@
       /* harmony default export */
 
 
-      __webpack_exports__["default"] = "\n<ion-tabs>\n  <ion-tab-bar slot=\"bottom\">\n    <ion-tab-button tab=\"music\">\n      <ion-icon size=\"large\" name=\"musical-notes-outline\"></ion-icon>\n      <ion-label>Music</ion-label>\n    </ion-tab-button>\n    <ion-tab-button tab=\"favorite\">\n      <ion-icon size=\"large\" name=\"star-outline\"></ion-icon>\n      <ion-label>Favorites</ion-label>\n    </ion-tab-button>\n  </ion-tab-bar>\n</ion-tabs>";
+      __webpack_exports__["default"] = "\n<app-header [isMenu]=\"true\" [title]=\"'Musica'\"></app-header>\n<app-menu></app-menu>\n<ion-content>\n  <ion-tabs #tabs (ionTabsDidChange)=\"setTab()\">\n    <ion-tab-bar slot=\"bottom\">\n      <ion-tab-button tab=\"music\">\n        <ion-icon size=\"large\" name=\"musical-notes-outline\"></ion-icon>\n        <ion-label>Music</ion-label>\n      </ion-tab-button>\n      <ion-tab-button tab=\"favorite\">\n        <ion-icon size=\"large\" name=\"star-outline\"></ion-icon>\n        <ion-label>Favorites</ion-label>\n      </ion-tab-button>\n    </ion-tab-bar>\n  </ion-tabs>\n</ion-content>\n";
       /***/
     }
   }]);

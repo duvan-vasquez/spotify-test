@@ -1,5 +1,74 @@
 (self["webpackChunkspotify_test"] = self["webpackChunkspotify_test"] || []).push([["src_app_pages_main_main_module_ts"],{
 
+/***/ 39966:
+/*!***********************************************************!*\
+  !*** ./src/app/core/services/spotify/category.service.ts ***!
+  \***********************************************************/
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "CategoryService": function() { return /* binding */ CategoryService; }
+/* harmony export */ });
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! tslib */ 64762);
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/core */ 37716);
+/* harmony import */ var rxjs__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! rxjs */ 79765);
+/* harmony import */ var _authorize_service__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./authorize.service */ 67880);
+
+
+
+
+let CategoryService = class CategoryService {
+    constructor(authorizeService) {
+        this.authorizeService = authorizeService;
+        this.listCategories = [];
+        this.categoryServiceSubscribe = new rxjs__WEBPACK_IMPORTED_MODULE_1__.Subject();
+    }
+    get() {
+        return (0,tslib__WEBPACK_IMPORTED_MODULE_2__.__awaiter)(this, void 0, void 0, function* () {
+            return yield this.authorizeService.spotifyApi.getCategories({
+                offset: 0,
+                limit: 30
+            })
+                .then((res) => {
+                return res.categories.items;
+            });
+        });
+    }
+    getById(id) {
+        return (0,tslib__WEBPACK_IMPORTED_MODULE_2__.__awaiter)(this, void 0, void 0, function* () {
+            return yield this.authorizeService.spotifyApi.getCategoryPlaylists(id)
+                .then((res) => {
+                return res.playlists.items;
+            });
+        });
+    }
+    getRecommendation() {
+        return (0,tslib__WEBPACK_IMPORTED_MODULE_2__.__awaiter)(this, void 0, void 0, function* () {
+            this.listCategories = yield this.authorizeService.spotifyApi.getRecommendations({
+                limit: 30,
+                seed_genres: 'pop'
+            })
+                .then((res) => {
+                return res.tracks;
+            });
+        });
+    }
+};
+CategoryService.ctorParameters = () => [
+    { type: _authorize_service__WEBPACK_IMPORTED_MODULE_0__.AuthorizeService }
+];
+CategoryService = (0,tslib__WEBPACK_IMPORTED_MODULE_2__.__decorate)([
+    (0,_angular_core__WEBPACK_IMPORTED_MODULE_3__.Injectable)({
+        providedIn: 'root'
+    })
+], CategoryService);
+
+
+
+/***/ }),
+
 /***/ 33907:
 /*!***************************************************!*\
   !*** ./src/app/pages/main/main-routing.module.ts ***!
@@ -32,13 +101,13 @@ const routes = [
                 path: 'favorite',
                 loadChildren: () => __webpack_require__.e(/*! import() */ "src_app_pages_main_favorite_favorite-tab_module_ts").then(__webpack_require__.bind(__webpack_require__, /*! ./favorite/favorite-tab.module */ 2271)).then(p => p.FavoriteTabPageModule)
             },
+            {
+                path: '',
+                redirectTo: 'music',
+                pathMatch: 'full'
+            },
         ]
-    },
-    {
-        path: '',
-        redirectTo: 'music',
-        pathMatch: 'full'
-    },
+    }
 ];
 let MainPageRoutingModule = class MainPageRoutingModule {
 };
@@ -82,7 +151,6 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-//import { ListMolecule } from 'src/app/components/molecules/list/list.molecule.component';
 let MainPageModule = class MainPageModule {
 };
 MainPageModule = (0,tslib__WEBPACK_IMPORTED_MODULE_4__.__decorate)([
@@ -114,12 +182,14 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "MainPage": function() { return /* binding */ MainPage; }
 /* harmony export */ });
-/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! tslib */ 64762);
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! tslib */ 64762);
 /* harmony import */ var _raw_loader_main_page_html__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! !raw-loader!./main.page.html */ 51375);
 /* harmony import */ var _main_page_scss__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./main.page.scss */ 18805);
-/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @angular/core */ 37716);
-/* harmony import */ var _ionic_angular__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @ionic/angular */ 80476);
-/* harmony import */ var src_app_core_services_spotify_auth_service__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! src/app/core/services/spotify-auth.service */ 55818);
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @angular/core */ 37716);
+/* harmony import */ var _ionic_angular__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @ionic/angular */ 80476);
+/* harmony import */ var src_app_core_services_spotify_category_service__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! src/app/core/services/spotify/category.service */ 39966);
+/* harmony import */ var src_app_core_services_spotify_follow_service__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! src/app/core/services/spotify/follow.service */ 72570);
+
 
 
 
@@ -127,31 +197,35 @@ __webpack_require__.r(__webpack_exports__);
 
 
 let MainPage = class MainPage {
-    constructor(spotifyAuthService) {
-        this.spotifyAuthService = spotifyAuthService;
+    constructor(categoryService, followService) {
+        this.categoryService = categoryService;
+        this.followService = followService;
         this.selected = '';
     }
     ngOnInit() {
         this.loadList();
     }
     loadList() {
-        return (0,tslib__WEBPACK_IMPORTED_MODULE_3__.__awaiter)(this, void 0, void 0, function* () {
-            const data = yield this.spotifyAuthService.getPlayList();
-            console.log(data);
+        return (0,tslib__WEBPACK_IMPORTED_MODULE_4__.__awaiter)(this, void 0, void 0, function* () {
+            yield this.followService.get().then(() => { });
+            yield this.categoryService.getRecommendation().then(() => { });
+            yield this.categoryService.categoryServiceSubscribe.next(true);
         });
     }
     setTab() {
+        console.log('load data');
         this.selected = this.tabs.getSelected();
     }
 };
 MainPage.ctorParameters = () => [
-    { type: src_app_core_services_spotify_auth_service__WEBPACK_IMPORTED_MODULE_2__.SpotifyAuthService }
+    { type: src_app_core_services_spotify_category_service__WEBPACK_IMPORTED_MODULE_2__.CategoryService },
+    { type: src_app_core_services_spotify_follow_service__WEBPACK_IMPORTED_MODULE_3__.FollowService }
 ];
 MainPage.propDecorators = {
-    tabs: [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_4__.ViewChild, args: [_ionic_angular__WEBPACK_IMPORTED_MODULE_5__.IonTabs,] }]
+    tabs: [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_5__.ViewChild, args: [_ionic_angular__WEBPACK_IMPORTED_MODULE_6__.IonTabs,] }]
 };
-MainPage = (0,tslib__WEBPACK_IMPORTED_MODULE_3__.__decorate)([
-    (0,_angular_core__WEBPACK_IMPORTED_MODULE_4__.Component)({
+MainPage = (0,tslib__WEBPACK_IMPORTED_MODULE_4__.__decorate)([
+    (0,_angular_core__WEBPACK_IMPORTED_MODULE_5__.Component)({
         selector: 'app-main',
         template: _raw_loader_main_page_html__WEBPACK_IMPORTED_MODULE_0__.default,
         styles: [_main_page_scss__WEBPACK_IMPORTED_MODULE_1__.default]
@@ -182,7 +256,7 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = ("\n<ion-tabs>\n  <ion-tab-bar slot=\"bottom\">\n    <ion-tab-button tab=\"music\">\n      <ion-icon size=\"large\" name=\"musical-notes-outline\"></ion-icon>\n      <ion-label>Music</ion-label>\n    </ion-tab-button>\n    <ion-tab-button tab=\"favorite\">\n      <ion-icon size=\"large\" name=\"star-outline\"></ion-icon>\n      <ion-label>Favorites</ion-label>\n    </ion-tab-button>\n  </ion-tab-bar>\n</ion-tabs>");
+/* harmony default export */ __webpack_exports__["default"] = ("\n<app-header [isMenu]=\"true\" [title]=\"'Musica'\"></app-header>\n<app-menu></app-menu>\n<ion-content>\n  <ion-tabs #tabs (ionTabsDidChange)=\"setTab()\">\n    <ion-tab-bar slot=\"bottom\">\n      <ion-tab-button tab=\"music\">\n        <ion-icon size=\"large\" name=\"musical-notes-outline\"></ion-icon>\n        <ion-label>Music</ion-label>\n      </ion-tab-button>\n      <ion-tab-button tab=\"favorite\">\n        <ion-icon size=\"large\" name=\"star-outline\"></ion-icon>\n        <ion-label>Favorites</ion-label>\n      </ion-tab-button>\n    </ion-tab-bar>\n  </ion-tabs>\n</ion-content>\n");
 
 /***/ })
 
