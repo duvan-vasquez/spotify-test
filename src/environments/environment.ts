@@ -3,7 +3,30 @@
 // The list of file replacements can be found in `angular.json`.
 
 export const environment = {
-  production: false
+  production: false,
+  scheme: 'io.ionic.starter', 
+  apis: { 
+    spotify: {
+      clientId: '005985beb5d847c7808a15f7e2c4302c',
+      clientSecret: 'b398450cb66b4ef0b1dd0ce0e7f928aa',
+      urlResponse: {
+        tokenExchangeUrl: 'https://spotify-dashboard1.herokuapp.com/exchange',
+        tokenRefreshUrl: 'https://spotify-dashboard1.herokuapp.com/refresh'
+      }
+    }
+  },
+  database: {
+    name: 'SPOTIFYDATABASE'
+  },
+  definitions: {
+    userSpotify: 'user_spotify',
+    authToken: 'auth',
+    loggedIn: 'logged_in',
+    token: 'token',
+    accessToken: 'access_token',
+    expireIn: 'expire_in',
+    refreshToken: 'refresh_token'
+  }
 };
 
 /*

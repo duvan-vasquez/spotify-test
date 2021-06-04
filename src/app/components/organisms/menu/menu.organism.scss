@@ -1,0 +1,28 @@
+.header-background {
+    height: 100px;
+    width: 100%;
+}
+
+.header-content {
+    position: absolute;
+    align-items: center;
+    display: flex;
+    left: 20px;
+    top: 20px;
+
+    .img-menu {
+        width: 75px;
+        border-radius: 50%;
+    }
+}
+
+ion-menu {
+    ion-content {
+        ion-label {
+            h2 {
+                font-weight: bold;
+                padding-left: 20px;
+            }
+        }
+    }
+}

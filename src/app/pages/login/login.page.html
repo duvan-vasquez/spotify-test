@@ -1,9 +1,14 @@
-<ion-header>
-  <ion-toolbar>
-    <ion-title>Login</ion-title>
-  </ion-toolbar>
-</ion-header>
-
 <ion-content class="ion-padding">
-  <ion-button [routerLink]="['/detail']">Go to detail</ion-button>
+  <div class="vertical-center">
+    <div class="header">
+      <ion-img class="a-img-70" src="assets/general/logo.png"></ion-img>
+    </div>
+    <ion-grid>
+      <ion-row>
+        <ion-col> 
+          <ion-button type="button" (click)="onConnect()" expand="block" color="success">Log In</ion-button>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </div>
 </ion-content>

@@ -1,0 +1,6 @@
+<ion-item [formGroup]="parentForm">
+    <ion-label position="floating">Email</ion-label>
+    <ion-input type="email" formControlName="email"></ion-input>
+</ion-item>
+<span class="message-validator" *ngIf="email.touched && email.invalid && email.errors?.required">Required</span>
+<span class="message-validator" *ngIf="email.touched && email.invalid && email.errors?.email">Correo Invalido</span>

@@ -5,9 +5,11 @@
 	"npmClient": "npm",
 	"webDir": "www",
 	"plugins": {
-		"SplashScreen": {
-			"launchShowDuration": 3000
-		}
+		"SplashScreen": {}
 	},
-	"cordova": {}
+	"cordova": {},
+	"server": {
+		"url": "http://192.168.0.26:8100",
+		"cleartext": true
+	}
 }

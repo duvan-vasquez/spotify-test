@@ -1,0 +1,15 @@
+<ion-menu side="start" menuId="first" contentId="main">
+  <ion-content>
+    <div class="header-background"></div>
+    <div class="header-content">
+      <img class="img-menu" src="{{user?.images[0]?.url}}">
+    </div>
+    <ion-label>
+      <h2>{{user?.display_name}}</h2>
+    </ion-label>
+    <ion-button (click)="logout()" class="ion-padding" expand="block">
+      <ion-icon slot="start" name="star"></ion-icon>
+      Logout
+    </ion-button>
+  </ion-content>
+</ion-menu>
